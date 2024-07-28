@@ -1,6 +1,7 @@
 Playing with Opentelemetry and Kafka 
 
 ~~~
+podman network create otel-network
 podman build
 podman-compose up -d 
 ~~~
