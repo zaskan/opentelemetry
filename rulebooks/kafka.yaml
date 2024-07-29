@@ -5,7 +5,7 @@
   sources:
      - name: Monitor kafka otel-messages topic
        ansible.eda.kafka:
-         host: 10.0.0.101
+         host: 192.168.122.247
          port: 9092
          topic: otel-messages
 
