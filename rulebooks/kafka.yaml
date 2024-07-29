@@ -7,6 +7,8 @@
        ansible.eda.kafka:
          host: 192.168.122.247
          port: 9092
+         check_hostname: false
+         verify_mode: CERT_NONE
          topic: otel-messages
 
   rules:
