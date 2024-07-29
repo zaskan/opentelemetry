@@ -12,6 +12,6 @@
   rules:
 
     - name: Trigger BGP validation
-      condition: event.body is defined
+      condition: event.resourceSpans is defined
       action:
         debug:
