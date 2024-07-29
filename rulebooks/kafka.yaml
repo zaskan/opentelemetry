@@ -1,0 +1,17 @@
+---
+- name: Rulebook for Netops demo
+  hosts: localhost
+
+  sources:
+     - name: Monitor kafka otel-messages topic
+       ansible.eda.kafka:
+         host: 10.0.0.101
+         port: 9092
+         topic: otel-messages
+
+  rules:
+
+    - name: Trigger BGP validation
+      condition: event.body is defined
+      action:
+        debug:
