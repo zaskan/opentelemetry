@@ -14,6 +14,6 @@
   rules:
 
     - name: Trigger BGP validation
-      condition: event.message != ""
+      condition: event.body != ""
       action:
         debug:
