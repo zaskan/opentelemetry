@@ -7,9 +7,9 @@
         topic: otel-events
         group_id: ansible-group
         security_protocol: SSL
-        cafile: ./certs/ca.crt
-        certfile: ./certs/client.crt
-        keyfile: ./certs/client.key
+        cafile: ./opentelemetry/rulebooks/certs/ca.crt
+        certfile: ./opentelemetry/rulebooks/certs/client.crt
+        keyfile: ./opentelemetry/rulebooks/certs/client.key
         check_hostname: false
 
   rules:
