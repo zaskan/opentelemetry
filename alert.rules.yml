@@ -1,0 +1,12 @@
+groups:
+  - name: web_down
+    rules:
+    - alert: WebDown
+      expr: up == 0
+      for: 1m
+      labels:
+        severity: critical
+      annotations:
+        summary: "Web page is down"
+        description: "The web page {{ $labels.instance }} is down."
+

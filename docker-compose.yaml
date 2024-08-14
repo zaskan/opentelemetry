@@ -52,4 +52,43 @@ services:
     command: ["--config=/etc/otel-collector-config.yaml"]
     ports:
       - "4318:4318"  # Expose the OTLP HTTP receiver port
+      - "55680:55680"  # Added alternative port for OTLP receiver
+
+  prometheus:
+    image: prom/prometheus:latest
+    networks:
+      - otel-network
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml:Z
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+    ports:
+      - "9090:9090"  # Prometheus UI port
+
+  alertmanager:
+    image: prom/alertmanager:latest
+    networks:
+      - otel-network
+    volumes:
+      - ./alertmanager.yml:/etc/alertmanager/alertmanager.yml:Z
+    command:
+      - '--config.file=/etc/alertmanager/alertmanager.yml'
+    ports:
+      - "9094:9094"  # Changed Alertmanager UI port to 9094 to avoid conflict
+
+  nginx:
+    image: nginx:latest
+    networks:
+      - otel-network
+    ports:
+      - "8080:80"  # Expose the Nginx web server on port 8080
+    volumes:
+      - ./nginx/index.html:/usr/share/nginx/htmli/index.html:Z
+
+  blackbox-exporter:
+    image: prom/blackbox-exporter:latest
+    networks:
+      - otel-network
+    ports:
+      - "9115:9115"  # Blackbox Exporter port
 
