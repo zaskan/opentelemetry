@@ -9,6 +9,9 @@
         expected_start: "{{ date }}"
       register: result
 
+    - debug:
+        msg: "{{ result }}"
+
     - name: Close Incident {{ servicenow_incident_number }}
       servicenow.itsm.api:
         resource: incident
