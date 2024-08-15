@@ -6,6 +6,9 @@
     - name: Parse payload
       ansible.builtin.set_fact:
         parsed_payload: "{{ kafka_message.body.resourceLogs[0].scopeLogs[0].logRecords[0].body.stringValue | from_json }}"
+
+    - name: Set facts
+      ansible.builtin.set_fact:
         status: "{{ parsed_payload.status }}"
 
     - name: Debug
