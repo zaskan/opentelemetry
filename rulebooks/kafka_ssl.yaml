@@ -19,5 +19,5 @@
           name: Remediate
           organization: Default
           job_args: 
-            extra_vars: "{{ event.payload }}"
+            extra_vars: "{{ event }}"
 
