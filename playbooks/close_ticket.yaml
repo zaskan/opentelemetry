@@ -7,7 +7,7 @@
     - name: Get Info From Incident {{ servicenow_incident_number }}
       servicenow.itsm.incident_info:
         query: 
-          comment: "{{ date | b64encode }}"
+          cause: "{{ date | b64encode }}"
       register: result
 
     - debug:
