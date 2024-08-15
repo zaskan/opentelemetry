@@ -4,17 +4,6 @@
   gather_facts: false
   tasks:
 
-    - name: Parse payload
-      ansible.builtin.set_fact:
-        parsed_payload: "{{ kafka_message.body.resourceLogs[0].scopeLogs[0].logRecords[0].body.stringValue | from_json }}"
-
-    - name: Set facts
-      ansible.builtin.set_fact:
-        status: "{{ parsed_payload.status }}"
-        description: "{{ parsed_payload.alerts[0].annotations.description }}"
-        title: "{{ parsed_payload.alerts[0].annotations.summary }}"
-        date: "{{ parsed_payload.alerts[0].startsAt }}"
-
     - name: Open ServiceNow incident
       servicenow.itsm.incident:
         state: new
