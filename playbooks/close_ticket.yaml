@@ -6,7 +6,8 @@
 
     - name: Get Info From Incident {{ servicenow_incident_number }}
       servicenow.itsm.incident_info:
-        query: "commentsLIKE{{ date | b64encode }}'"
+        query: 
+          comment: "{{ date | b64encode }}"
       register: result
 
     - debug:
