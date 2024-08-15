@@ -15,8 +15,8 @@
     - name: Trigger remediation
       condition: event.body != ""
       action:
-        run_workflow_job_template:
-          name: Kafka Events Pipeline
+        run_job_template:
+          name: Parse Kafka Payload
           organization: Default
           job_args: 
             extra_vars: 
