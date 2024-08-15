@@ -16,4 +16,8 @@
     - name: Debug
       condition: event.alerts != ""
       action:
-        debug:
+        run_job_template:
+          name: Remediate
+          extra_vars: 
+            kafka_message: "{{ event.alerts }}"
+

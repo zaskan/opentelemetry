@@ -1,0 +1,8 @@
+---
+- name: Open Servicwnow Ticket
+  hosts: localhost
+  gather_facts: false
+  tasks:
+    - name: Debug
+      ansible.builtin.debug:
+        msg: "{{ kafka_message }}"
