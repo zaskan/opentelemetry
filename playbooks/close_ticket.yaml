@@ -4,7 +4,7 @@
   gather_facts: false
   tasks:
 
-    - name: Get Info From Incident {{ servicenow_incident_number }}
+    - name: Get Info From Incident 
       servicenow.itsm.incident_info:
         sysparm_query: "causeLIKE{{ date | b64encode }}"
       register: result
@@ -12,7 +12,7 @@
     - debug:
         msg: "{{ result }}"
 
-    - name: Close Incident {{ servicenow_incident_number }}
+    - name: Close Incident
       servicenow.itsm.api:
         resource: incident
         action: patch
@@ -20,7 +20,7 @@
         data:
           state: 7
           incident_state: 7
-          number: "{{ result.task_effective_number }}"
+          number: "{{ result.records[0].task_effective_number }}"
           close_code: "Resolved by Event_driven Ansible"
           close_notes: "Restarted Nginx Container"
           caller: "admin"
