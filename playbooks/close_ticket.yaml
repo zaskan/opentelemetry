@@ -6,7 +6,7 @@
 
     - name: Get Info From Incident {{ servicenow_incident_number }}
       servicenow.itsm.incident_info:
-        query: "description='{{ description }} at {{ date }}'"
+        query: "additional_commentsLIKE{{ date | base64encode }}'"
       register: result
 
     - debug:

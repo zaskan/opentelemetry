@@ -9,9 +9,11 @@
         state: new
         caller: "admin"
         short_description: "{{ title }}"
-        description: "{{ description }} at {{ date }}"
+        description: "{{ description }}"
         impact: "low"
         urgency: "high"
+        data:
+          additional_comments: "{{ date | b64encode }}"
       register: incident
 
     - name: Set ServiceNow incident state
