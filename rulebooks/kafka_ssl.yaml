@@ -17,7 +17,7 @@
       action:
         run_job_template:
           name: Remediate
-          organization: default
+          organization: Default
           extra_vars: 
             kafka_message: "{{ event.body }}"
 
