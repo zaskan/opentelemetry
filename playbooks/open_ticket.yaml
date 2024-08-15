@@ -1,5 +1,5 @@
 ---
-- name: Open Servicwnow Ticket
+- name: Parse Kafka Message
   hosts: localhost
   gather_facts: false
   tasks:
@@ -10,7 +10,10 @@
     - name: Set facts
       ansible.builtin.set_fact:
         status: "{{ parsed_payload.status }}"
+        description: "{{ parsed_payload.annotations.description }}"
+        title: "{{ parsed_payload.annotations.summary }}"
+        date: "{{ parsed_payload.startsAt }}"
 
     - name: Debug
       ansible.builtin.debug:
-        msg: "{{ status }}"
+        msg: "{{ status }} {{ description }} {{ title }} {{ date }}"
