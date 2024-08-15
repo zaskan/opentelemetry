@@ -9,4 +9,4 @@
 
     - name: Debug
       ansible.builtin.debug:
-        msg: "{{ parsed_body.status }}"
+        msg: "{{ parsed_payload.status }}"
