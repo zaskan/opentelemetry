@@ -9,9 +9,6 @@
         sysparm_query: "causeLIKE{{ date | b64encode }}"
       register: result
 
-    - debug:
-        msg: "{{ result }}"
-
     - name: Close Incident
       servicenow.itsm.api:
         resource: incident
