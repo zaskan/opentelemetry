@@ -12,8 +12,11 @@
         check_hostname: false
 
   rules:
-    - name: Debug
+    - name: Trigger remediation
       condition: event.body != ""
       action:
-        debug:
+        run_job_template:
+          name: Remediate
+          extra_vars: 
+            kafka_message: "{{ event.body }}"
 
