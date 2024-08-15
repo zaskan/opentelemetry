@@ -14,10 +14,10 @@
 
   rules:
     - name: Debug
-      condition: event.alerts != ""
+      condition: event.body != ""
       action:
         run_job_template:
           name: Remediate
           extra_vars: 
-            kafka_message: "{{ event.alerts }}"
+            kafka_message: "{{ event.body }}"
 
