@@ -1,8 +1,9 @@
 ---
-- name: Parse Kafka Message
+- name: Open Ticket
   hosts: all
   gather_facts: false
   tasks:
+
     - name: Parse payload
       ansible.builtin.set_fact:
         parsed_payload: "{{ kafka_message.body.resourceLogs[0].scopeLogs[0].logRecords[0].body.stringValue | from_json }}"
@@ -14,5 +15,22 @@
         title: "{{ parsed_payload.alerts[0].annotations.summary }}"
         date: "{{ parsed_payload.alerts[0].startsAt }}"
 
-    - name: Debug
-      ansible.builtin.command: podman start opentelemetry_nginx_1
+    - name: Open ServiceNow incident
+      servicenow.itsm.incident:
+        state: new
+        caller: "admin"
+        short_description: "{{ title }}"
+        description: "{{ description }}"
+        impact: "low"
+        urgency: "high"
+      register: incident
+
+    - name: Set ServiceNow incident state
+      servicenow.itsm.incident:
+        state: in_progress
+        number: "{{ incident.record.number }}"
+
+    - name: Set ServiceNow incident number
+      ansible.builtin.set_stats:
+        data:
+          incident: "{{ incident.record.number }}"
