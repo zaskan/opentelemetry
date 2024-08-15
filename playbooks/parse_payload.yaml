@@ -29,6 +29,9 @@
       ansible.controller.job_launch:
         job_template: "Close Servicenow Ticket"
         extra_vars:
+          status: "{{ status }}"
+          description: "{{ description }}"
+          title: "{{ title }}"
           date: "{{ date }}"
       when: status == "resolved"
 
