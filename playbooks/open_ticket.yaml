@@ -5,4 +5,4 @@
   tasks:
     - name: Debug
       ansible.builtin.debug:
-        msg: "{{ event.body }}"
+        msg: "{{ kafka_message }}"

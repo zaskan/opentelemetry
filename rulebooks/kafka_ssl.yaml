@@ -19,5 +19,6 @@
           name: Remediate
           organization: Default
           job_args: 
-            extra_vars: "{{ event }}"
+            extra_vars: 
+              kafka_message: "{{ event }}"
 
