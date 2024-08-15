@@ -5,7 +5,6 @@
         host: 192.168.122.247
         port: 9093
         topic: otel-events
-        group_id: ansible-group
         security_protocol: SSL
         cafile: /etc/ssl/certs/ca.crt
         certfile: /etc/ssl/certs/client.crt
