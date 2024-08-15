@@ -12,7 +12,7 @@
         description: "{{ description }}"
         impact: "low"
         urgency: "high"
-        data:
+        other:
           additional_comments: "{{ date | b64encode }}"
       register: incident
 
