@@ -13,7 +13,7 @@
         impact: "low"
         urgency: "high"
         other:
-          additional_comments: "{{ date | b64encode }}"
+          comments: "{{ date | b64encode }}"
       register: incident
 
     - name: Set ServiceNow incident state
