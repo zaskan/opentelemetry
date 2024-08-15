@@ -20,7 +20,7 @@
         data:
           state: 7
           incident_state: 7
-          number: "{{ servicenow_incident_number }}"
-          close_code: "Resolved by Caller"
-          close_notes: "{{ servicenow_incident_notes }}"
-          caller: "{{ servicenow_incident_caller }}"
+          number: "{{ result.task_effective_number }}"
+          close_code: "Resolved by Event_driven Ansible"
+          close_notes: "Restarted Nginx Container"
+          caller: "admin"
