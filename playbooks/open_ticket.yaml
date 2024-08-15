@@ -3,6 +3,10 @@
   hosts: localhost
   gather_facts: false
   tasks:
+    - name: Parse payload
+      set_fact:
+        parsed_payload: "{{ kafka_message.body.resourceLogs[0].scopeLogs[0].logRecords[0].body.stringValue | from_json }}"
+
     - name: Debug
       ansible.builtin.debug:
-        msg: "{{ kafka_message.body }}"
+        msg: "{{ parsed_body.status }}"
