@@ -18,6 +18,6 @@
         run_job_template:
           name: Remediate
           organization: Default
-          extra_vars: 
+          job_args: 
             kafka_message: "{{ event.body }}"
 
