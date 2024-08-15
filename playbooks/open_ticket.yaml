@@ -9,5 +9,5 @@
         status: "{{ parsed_payload.status }}"
 
     - name: Debug
-      ansible.builting.debug:
+      ansible.builtin.debug:
         msg: "{{ status }}"
