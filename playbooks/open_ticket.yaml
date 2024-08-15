@@ -1,6 +1,6 @@
 ---
 - name: Parse Kafka Message
-  hosts: localhost
+  hosts: all
   gather_facts: false
   tasks:
     - name: Parse payload
@@ -15,5 +15,4 @@
         date: "{{ parsed_payload.alerts[0].startsAt }}"
 
     - name: Debug
-      ansible.builtin.debug:
-        msg: "{{ status }} {{ description }} {{ title }} {{ date }}"
+      ansible.builtin.command: podman start opentelemetry_nginx_1
