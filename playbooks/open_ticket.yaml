@@ -4,9 +4,10 @@
   gather_facts: false
   tasks:
     - name: Parse payload
-      set_fact:
+      ansible.builtin.set_fact:
         parsed_payload: "{{ kafka_message.body.resourceLogs[0].scopeLogs[0].logRecords[0].body.stringValue | from_json }}"
+        status: "{{ parsed_payload.status }}"
 
     - name: Debug
-      ansible.builtin.debug:
-        msg: "{{ parsed_payload.status }}"
+      ansible.builting.debug:
+        msg: "{{ status }}"
