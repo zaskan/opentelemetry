@@ -10,9 +10,9 @@
     - name: Set facts
       ansible.builtin.set_fact:
         status: "{{ parsed_payload.status }}"
-        description: "{{ parsed_payload.annotations.description }}"
-        title: "{{ parsed_payload.annotations.summary }}"
-        date: "{{ parsed_payload.startsAt }}"
+        description: "{{ parsed_payload.alerts[0].annotations.description }}"
+        title: "{{ parsed_payload.alerts[0].annotations.summary }}"
+        date: "{{ parsed_payload.alerts[0].startsAt }}"
 
     - name: Debug
       ansible.builtin.debug:
