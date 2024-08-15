@@ -53,12 +53,17 @@ services:
     ports:
       - "4318:4318"  # Expose the OTLP HTTP receiver port
       - "55680:55680"  # Added alternative port for OTLP receiver
+      - "1979:1979"
+      - "8888:8888" 
+      - "13133:13133"
+      - "1777:1777"
 
   prometheus:
     image: prom/prometheus:latest
     networks:
       - otel-network
     volumes:
+      - ./alert.rules.yml:/etc/prometheus/alert.rules.yml:Z
       - ./prometheus.yml:/etc/prometheus/prometheus.yml:Z
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
@@ -73,6 +78,7 @@ services:
       - ./alertmanager.yml:/etc/alertmanager/alertmanager.yml:Z
     command:
       - '--config.file=/etc/alertmanager/alertmanager.yml'
+
     ports:
       - "9094:9094"  # Changed Alertmanager UI port to 9094 to avoid conflict
 
