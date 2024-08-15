@@ -12,6 +12,8 @@
         description: "{{ description }}"
         impact: "low"
         urgency: "high"
+        other:
+          expected_start: "{{ date }}"
       register: incident
 
     - name: Set ServiceNow incident state
