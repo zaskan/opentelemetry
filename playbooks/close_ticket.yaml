@@ -6,7 +6,7 @@
 
     - name: Get Info From Incident {{ servicenow_incident_number }}
       servicenow.itsm.incident_info:
-        number: "{{ servicenow_incident_number }}"
+        expected_start: "{{ date }}"
       register: result
 
     - name: Close Incident {{ servicenow_incident_number }}
