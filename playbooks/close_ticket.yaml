@@ -6,8 +6,7 @@
 
     - name: Get Info From Incident {{ servicenow_incident_number }}
       servicenow.itsm.incident_info:
-        query: 
-          - cause: "{{ date | b64encode }}"
+        sysparam_query: "causeLIKE{{ date | b64encode }}"
       register: result
 
     - debug:
