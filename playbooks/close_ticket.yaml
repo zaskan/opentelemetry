@@ -6,7 +6,7 @@
 
     - name: Get Info From Incident {{ servicenow_incident_number }}
       servicenow.itsm.incident_info:
-        description: "{{ description }} at {{ date }}"
+        query: "description='{{ description }} at {{ date }}'"
       register: result
 
     - debug:
