@@ -6,6 +6,7 @@ networks:
 
 services:
   zookeeper:
+    container_name: zookeeper
     image: confluentinc/cp-zookeeper:7.7.0
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
@@ -16,6 +17,7 @@ services:
       - otel-network
 
   kafka:
+    container_name: kafka
     image: bitnami/kafka:3.4.1
     networks:
       - otel-network
@@ -49,6 +51,7 @@ services:
       timeoutSeconds: 5
 
   otel-collector:
+    container_name: otel-collector
     image: otel/opentelemetry-collector-contrib:0.106.1
     networks:
       - otel-network
@@ -67,6 +70,7 @@ services:
       - "1777:1777"
 
   prometheus:
+    container_name: prometheus
     image: prom/prometheus:v2.54.1
     networks:
       - otel-network
@@ -79,6 +83,7 @@ services:
       - "9090:9090"  # Prometheus UI port
 
   alertmanager:
+    container_name: alertmanager
     image: prom/alertmanager:v0.27.0
     networks:
       - otel-network
@@ -91,15 +96,19 @@ services:
       - "9094:9094"  # Changed Alertmanager UI port to 9094 to avoid conflict
 
   nginx:
+    container_name: nginx
     image: nginx:1.27.1
     networks:
       - otel-network
     ports:
       - "8080:80"  # Expose the Nginx web server on port 8080
     volumes:
-      - ./nginx/index.html:/usr/share/nginx/htmli/index.html:Z
+      - ./nginx/index.html:/usr/share/nginx/html/index.html:Z
+      - ./nginx/animation.gif:/usr/share/nginx/html/animation.gif:Z
+      - ./nginx/logo.png:/usr/share/nginx/html/logo.png:Z
 
-  blackbox-exporter:
+  blackbox:
+    container_name: blackbox
     image: prom/blackbox-exporter:v0.25.0
     networks:
       - otel-network
