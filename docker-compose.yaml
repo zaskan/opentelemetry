@@ -39,6 +39,14 @@ services:
       - ./certs/kafka.truststore.jks:/bitnami/kafka/config/certs/kafka.truststore.jks:Z
     ports:
       - "9093:9093"  # Expose the external SSL port
+    readinessProbe:
+      failureThreshold: 6
+      initialDelaySeconds: 120
+      periodSeconds: 10
+      successThreshold: 1
+      tcpSocket:
+        port: 9092
+      timeoutSeconds: 5
 
   otel-collector:
     image: otel/opentelemetry-collector-contrib:0.106.1
@@ -54,12 +62,12 @@ services:
       - "4318:4318"  # Expose the OTLP HTTP receiver port
       - "55680:55680"  # Added alternative port for OTLP receiver
       - "1979:1979"
-      - "8888:8888" 
+      - "8888:8888"
       - "13133:13133"
       - "1777:1777"
 
   prometheus:
-    image: prom/prometheus:latest
+    image: prom/prometheus:v2.54.1
     networks:
       - otel-network
     volumes:
@@ -71,7 +79,7 @@ services:
       - "9090:9090"  # Prometheus UI port
 
   alertmanager:
-    image: prom/alertmanager:latest
+    image: prom/alertmanager:v0.27.0
     networks:
       - otel-network
     volumes:
@@ -83,7 +91,7 @@ services:
       - "9094:9094"  # Changed Alertmanager UI port to 9094 to avoid conflict
 
   nginx:
-    image: nginx:latest
+    image: nginx:1.27.1
     networks:
       - otel-network
     ports:
@@ -92,9 +100,8 @@ services:
       - ./nginx/index.html:/usr/share/nginx/htmli/index.html:Z
 
   blackbox-exporter:
-    image: prom/blackbox-exporter:latest
+    image: prom/blackbox-exporter:v0.25.0
     networks:
       - otel-network
     ports:
       - "9115:9115"  # Blackbox Exporter port
-
