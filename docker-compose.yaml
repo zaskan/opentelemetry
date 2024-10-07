@@ -41,12 +41,6 @@ services:
       - ./certs/kafka.truststore.jks:/bitnami/kafka/config/certs/kafka.truststore.jks:Z
     ports:
       - "9093:9093"  # Expose the external SSL port
-    healthcheck:
-      test: nc -z kafka 9093
-      start_period: 10s
-      interval: 5s
-      timeout: 5s
-      retries: 5
 
   otel-collector:
     container_name: otel-collector
