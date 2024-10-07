@@ -28,7 +28,7 @@ services:
       - ALLOW_PLAINTEXT_LISTENER=no
       - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=CLIENT:SSL,EXTERNAL:SSL
       - KAFKA_CFG_LISTENERS=CLIENT://:9092,EXTERNAL://:9093
-      - KAFKA_CFG_ADVERTISED_LISTENERS=CLIENT://kafka:9092,EXTERNAL://192.168.122.247:9093
+      - KAFKA_CFG_ADVERTISED_LISTENERS=CLIENT://kafka:9092,EXTERNAL://10.10.10.146:9093
       - KAFKA_CFG_INTER_BROKER_LISTENER_NAME=CLIENT
       - KAFKA_CFG_SSL_KEYSTORE_LOCATION=/bitnami/kafka/config/certs/kafka.keystore.jks
       - KAFKA_CFG_SSL_KEYSTORE_PASSWORD=kafkacertpass
@@ -41,18 +41,19 @@ services:
       - ./certs/kafka.truststore.jks:/bitnami/kafka/config/certs/kafka.truststore.jks:Z
     ports:
       - "9093:9093"  # Expose the external SSL port
-    readinessProbe:
-      failureThreshold: 6
-      initialDelaySeconds: 120
-      periodSeconds: 10
-      successThreshold: 1
-      tcpSocket:
-        port: 9092
-      timeoutSeconds: 5
+    healthcheck:
+      test: nc -z kafka 9093
+      start_period: 10s
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
   otel-collector:
     container_name: otel-collector
     image: otel/opentelemetry-collector-contrib:0.106.1
+    depends_on:
+      kafka:
+        condition: service_healthy
     networks:
       - otel-network
     volumes:
