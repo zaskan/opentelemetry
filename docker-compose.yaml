@@ -41,6 +41,12 @@ services:
       - ./certs/kafka.truststore.jks:/bitnami/kafka/config/certs/kafka.truststore.jks:Z
     ports:
       - "9093:9093"  # Expose the external SSL port
+    healthcheck:
+      test: "jps | grep Kafka"
+      start_period: 10s
+      interval: 5s
+      timeout: 10s
+      retries: 10
 
   otel-collector:
     container_name: otel-collector
@@ -48,6 +54,11 @@ services:
     depends_on:
       kafka:
         condition: service_healthy
+    restart_policy:
+      condition: on-failure
+      delay: 3s
+      max_attempts: 5
+      window: 5s
     networks:
       - otel-network
     volumes:
