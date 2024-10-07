@@ -103,9 +103,7 @@ services:
     ports:
       - "8080:80"  # Expose the Nginx web server on port 8080
     volumes:
-      - ./nginx/index.html:/usr/share/nginx/html/index.html:Z
-      - ./nginx/animation.gif:/usr/share/nginx/html/animation.gif:Z
-      - ./nginx/logo.png:/usr/share/nginx/html/logo.png:Z
+      - ./nginx/:/usr/share/nginx/html/:Z
 
   blackbox:
     container_name: blackbox
